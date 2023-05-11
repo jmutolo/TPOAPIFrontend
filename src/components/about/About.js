@@ -150,6 +150,7 @@ export default function About() {
             <Terminal text={experiencia()}/>
             <Terminal text={miscText()}/>
             
+            
         </Box>
    
     )
