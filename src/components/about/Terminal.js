@@ -9,6 +9,7 @@ function Terminal(props) {
    const {text} = props;
 
    return (
+      
       <Box component={'section'} className={classNames(Style.terminal, Style.shadowed)}
            width={{xs: '80%', md: '50%'}} borderRadius={'0.5rem'} mb={'4rem'}>
          <Box sx={{backgroundColor: '#8c8c8c'}} p={'0.5rem'} borderRadius={'0.5rem 0.5rem 0 0'}
