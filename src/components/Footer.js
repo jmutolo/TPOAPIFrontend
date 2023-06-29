@@ -90,8 +90,8 @@ export default function Footer({darkMode, handleClick}) {
                  textTransform={'lowercase'} fontSize={'1rem'}>
                 {links.map((link, index) => (
                     <Box key={index} component={'li'} className={(link.active === active && !link.type) && Style.active}
-                         sx={{borderImageSource: info.gradient}}>
-                        <Link to={link.to} onClick={() => setActive(link.active)} className={Style.link}>
+                         sx={{borderImageSource: info.gradient}} >
+                        <Link to={link.to} onClick={() => {setActive(link.active); window.scrollTo(0,0);}} className={Style.link} >
                             {!link.type && <p style={{padding: '0.5rem 0'}}>{link.name}</p>}
                             {link.type && <h1>{link.name}</h1>}
                         </Link>

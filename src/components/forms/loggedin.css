@@ -1,19 +1,23 @@
-.panelcontainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+
+.columnsWrapper {
     width: 100%;
-    padding-top: 5%;
-    text-align: center;
-    
+    display: flex;
+    flex-direction: column;
 }
 
-.pannelwrapper {
+.columnsRow {
+    width: 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
+}
+
+.column {
+    width: auto;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    text-align: center;
+
 }
 
 

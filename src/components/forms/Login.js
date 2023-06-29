@@ -1,55 +1,50 @@
-/*
-import React from 'react';
-import './ContactForm.css';
 
-const Login = () => {
-  return (
-    <div className="contact-form-wrapper">
-    <div className="contact-form-container">
-      <h2>Log in</h2>
-      <form>
-        <div className="form-group">
-          <label htmlFor="name">Usuario:</label>
-          <input type="text" id="name" name="name" placeholder="Ingrese su usuario" required />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="email">Contraseña:</label>
-          <input type="email" id="email" name="email" placeholder="Ingrese su contraseña" required />
-        </div>
-
-        <button type="submit">Ingresar</button>
-      </form>
-    </div>
-    </div>
-  );
-};
-
-export default Login;
-*/
 import React, { useState } from 'react';
 import './ContactForm.css';
 import LoggedInComponent from './LoggedInComponent';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //
+  const navigate = useNavigate();
+  //const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem('token'));
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault(); // Prevent form submission from refreshing the page
 
-    // Perform login validation here
-    // For simplicity, let's assume the login is successful if the username and password match
+    try {
+      const response = await axios.post('http://localhost:8080/api/usuarios/', {
+        username: username,
+        password: password
+      });
 
-    if (username === 'joaco' && password === 'apitpo') {
-      setIsLoggedIn(true);
-    } else {
-      alert('Usuario o contraseña invalidos. Intente nuevamente.');
+      const {status, token, message} = response.data;
+
+      
+
+      if(status === 200){
+        setIsLoggedIn(true);
+        sessionStorage.setItem('token', token);
+        //
+        navigate('/dashboard');
+      } else if(status === 401) {
+          alert('Usuario o contraseña invalidos');
+      }
     }
+    catch(error) {
+      console.error(error);
+      throw new Error("Error en form submit login");
+    }
+
   };
 
   if (isLoggedIn) {
+    navigate('/dashboard');
     return <LoggedInComponent />;
   }
 

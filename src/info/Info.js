@@ -51,7 +51,7 @@ export const info = {
     ],
     socials: [
         {
-            link: "https://linkedin.com",
+            link: "https://www.linkedin.com/in/joaqu%C3%ADn-m%C3%BAtolo-826178219/?locale=en_US",
             icon: "fa fa-linkedin",
             label: 'linkedin'
         },
@@ -65,7 +65,7 @@ export const info = {
 
     ],
     //bio: "Hello! I'm John. I'm a systems engineer for Google. I studied CompSci at Harvard, I enjoy long walks on the beach, and I believe artificial intelligence will inevitably rule us all one day. You should hire me!",
-    bio: "Hola! Soy Joaquin Mutolo, desarrollador frontend freelancer. Estudie Desarrollo de Software en la UADE y me gusta crear sitios webs creativos y amigables",
+    bio: "Hola! Soy Joaquin Mutolo, desarrollador frontend freelancer. Estudio Desarrollo de Software en la UADE y me gusta crear sitios webs creativos y amigables",
     skills:
         {
             proficientWith: ['javascript', 'react', 'git', 'github', 'bootstrap', 'html5', 'css3', 'figma', 'webflow', 'wordpress', 'python', 'sql'],

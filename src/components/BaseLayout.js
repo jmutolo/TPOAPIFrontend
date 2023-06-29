@@ -9,6 +9,8 @@ import {Box, Grid} from "@mui/material";
 import ContactForm from './forms/ContactForm';
 import Login from './forms/Login';
 import Footer from './Footer';
+import LoggedInComponent from './forms/LoggedInComponent';
+import Register from './forms/Register';
 
 
 export default function BaseLayout() {
@@ -42,7 +44,9 @@ export default function BaseLayout() {
                <Routes>
                   <Route exact path={'/'} element={<Home/>}/>
                   {/*<Route exact path={'/about'} element={<About/>}/>*/}
-                  <Route exact path={'/forms'} element={<Login/>}/>
+                  <Route exact path={'/forms'} element={<Register/>}/>
+                  <Route exact path={'/login'} element={<Login/>}/>
+                  <Route exact path="/dashboard" element={<LoggedInComponent />} />
                   <Route exact path={'/portfolio'} element={<ContactForm/>}/> 
                </Routes>
             </Grid>

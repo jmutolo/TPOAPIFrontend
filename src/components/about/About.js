@@ -73,12 +73,13 @@ export default function About() {
             </p>
             <p><span style={{color: info.baseColor}}>formacion <span
                 className={Style.green}>(main)</span> $</span> ls</p>
+            <p style={{color: info.baseColor}}> En progreso:</p>
             <p style={{color: info.baseColor}}> Titulo</p>
             <p>Tecnico Universitario en Desarrollo de Software</p>
             <p style={{color: info.baseColor}}> Institucion otorgante</p>
             <p>Universidad Argentina de la Empresa</p>
-            <p style={{color: info.baseColor}}> Año</p>
-            <p>2024?</p>
+            <p style={{color: info.baseColor}}> Graduacion esperada</p>
+            <p>2024</p>
           
         </>;
     }
@@ -112,7 +113,7 @@ export default function About() {
             <p>Manejo del tiempo</p>
             <p style={{color: info.baseColor}}>Hard Skills</p>
             <p>Tecnologias Frontend</p>
-            <p>Ver fortalezas</p>
+            
            
           
         </>;

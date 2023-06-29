@@ -1,39 +1,20 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Style from './Navbar.module.scss';
 import Toggler from "./home/Toggler";
 import {Link, useLocation} from "react-router-dom";
 import {Box} from "@mui/material";
 import {info} from "../info/Info";
+import axios from 'axios';
 
-/*
+let booleanExiste = false;
+
+
+
+
 const links = [
     {
         name: 'Home',
-        to: '/',
-        active: 'home'
-    },
-    {
-        name: 'About Me',
-        to: '/about',
-        active: 'about'
-    },
-    {
-        name: info.initials,
-        type: 'initials',
-        to: '/',
-        active: 'home'
-    },
-    {
-        name: 'Portfolio',
-        to: '/portfolio',
-        active: 'portfolio'
-    }
-]
-*/
-const links = [
-    {
-        name: 'Home',
-        to: '/',
+        to: '/' ,
         active: 'home'
     },
     {
@@ -49,14 +30,49 @@ const links = [
     },
     {
         name: 'log in',
-        to: '/forms',
+        to: '/login',
         active: 'login'
-    }
+    },
 ]
+
+const checkUserExists = async () => {
+    try {
+        const response = await axios.get('http://localhost:8080/api/usuarios/existe/');
+        const status = response.status;
+        
+        if(status===200) {
+            //setShowRegistrationForm(true);
+            booleanExiste = true;
+        }
+        if(status===404) {
+            booleanExiste = false;
+        }
+        
+        }catch (err) {
+            console.error(err);
+        }
+}
+
+if(!booleanExiste) {
+    links.push(    {
+        name: 'registrarse',
+        to: '/forms',
+        active: 'register',
+    });
+}
+
+//checkUserExists();
+
+
+
+
+
 
 export default function Navbar({darkMode, handleClick}) {
     const location = useLocation()
     const [active, setActive] = useState(location.pathname === '/' ? 'home' : location.pathname.slice(1, location.pathname.length));
+
+    checkUserExists();
 
     return (
         <Box component={'nav'} width={'100%'}>
