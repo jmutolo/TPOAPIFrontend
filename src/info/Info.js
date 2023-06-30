@@ -42,7 +42,7 @@ export const info = {
         },
         {
             emoji: "💼",
-            text: "Freelancer"
+            text: "Desarrollador Front-End Freelancer"
         },
         {
             emoji: "📧",
@@ -56,7 +56,7 @@ export const info = {
             label: 'linkedin'
         },
         {
-            link: "https://instagram.com",
+            link: "https://www.instagram.com/joacomutolo/",
             icon: 'fa fa-instagram',
             label: 'instagram'
         }

@@ -6,13 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 export const IsNotRegistered = () => {
     const navigate = useNavigate();
-    //const [isLoggedIn, setIsLoggedIn] = useState(false);
+    
     const [isRegistered, setIsRegistered] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const handleLogin = async (event) => {
-        event.preventDefault(); // Prevent form submission from refreshing the page
-    
+        event.preventDefault(); 
         try {
     
           const response = await axios.post('http://localhost:8080/api/usuarios/register', {
@@ -21,13 +20,17 @@ export const IsNotRegistered = () => {
           });
     
           const {status, token, message} = response.data;
+          console.log(response.data);
     
           
     
-          if(status === 200){
+          if(status === 201){
+           
             setIsRegistered(true);
-            navigate('/');
-          } else if(status === 401) {
+            alert("Gracias por registrarse!")
+            navigate('/login');
+            
+          } else if(status === 500) {
               alert('Usuario o contraseña invalidos');
           }
         }
@@ -37,6 +40,7 @@ export const IsNotRegistered = () => {
         }
     
       };
+
 
 
   return (
@@ -76,3 +80,4 @@ export const IsNotRegistered = () => {
   </div>
   )
 }
+
