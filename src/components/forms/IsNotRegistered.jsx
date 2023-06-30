@@ -25,10 +25,13 @@ export const IsNotRegistered = () => {
           
     
           if(status === 201){
-           
+            localStorage.setItem('isReg', 'true');
+            
             setIsRegistered(true);
             alert("Gracias por registrarse!")
+            
             navigate('/login');
+            window.location.reload();
             
           } else if(status === 500) {
               alert('Usuario o contraseña invalidos');

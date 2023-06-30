@@ -32,11 +32,14 @@ const Login = () => {
         sessionStorage.setItem('token', token);
         //
         navigate('/dashboard');
-      } else if(status === 401) {
-          alert('Usuario o contraseña invalidos');
+      } 
+      else if (status === 401) {
+        
+        alert("Usuario o contraseña invalidos");
       }
     }
     catch(error) {
+      alert("Usuario o contraseña invalidos");
       console.error(error);
       throw new Error("Error en form submit login");
     }

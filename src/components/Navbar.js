@@ -34,42 +34,9 @@ const links = [
         active: 'login'
     },
 ]
-/*
-const checkUserExists = async () => {
-    try {
-        const response = await axios.get('http://localhost:8080/api/usuarios/existe/');
-        const status = response.status;
-        
-        if(status===200) {
-            //setShowRegistrationForm(true);
-            booleanExiste = true;
-         
-        }
-        if(status===404) {
-            booleanExiste = false;
-            links.push(    {
-                name: 'registrarse',
-                to: '/forms',
-                active: 'register',
-            });
-        }
-        
-        }catch (err) {
-            console.error(err);
-        }
-}
-/*
-if(!booleanExiste) {
-    links.push(    {
-        name: 'registrarse',
-        to: '/forms',
-        active: 'register',
-    });
-}
-*/
-//checkUserExists();
 
 
+localStorage.setItem('isReg', 'false');
 
 
 
@@ -80,26 +47,35 @@ export default function Navbar({darkMode, handleClick}) {
     
     //checkUserExists();
    const [isRegistered, setIsRegistered] = useState(false);
+  
+   
 
     useEffect(()=>{
         checkUserExists();
-    })
+    }, [])
 
     const checkUserExists = async () => {
+
+
+
         try {
+            const isReg = eval(localStorage.getItem('isReg'));
+            if(!isReg){
             const response = await axios.get('http://localhost:8080/api/usuarios/existe/');
             const status = response.status;
             
             if(status===200) {
+                localStorage.setItem('isReg', 'true');
                 //setShowRegistrationForm(true);
                 setIsRegistered(true);
              
             }
             if(status===404) {
+                localStorage.setItem('isReg', 'false');
                 setIsRegistered(false);
                 
             }
-            
+        }
             }catch (err) {
                 console.error(err);
             }
@@ -199,7 +175,7 @@ export default function Navbar({darkMode, handleClick}) {
             </Box>
         )
     }
-
+/*
     return (
         <Box component={'nav'} width={'100%'}>
             <Box component={'ul'} display={'flex'} justifyContent={'center'} alignItems={'center'}
@@ -219,5 +195,5 @@ export default function Navbar({darkMode, handleClick}) {
                 </li>
             </Box>
         </Box>
-    )
+    )*/
 }

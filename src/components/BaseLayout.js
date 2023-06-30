@@ -14,6 +14,9 @@ import Register from './forms/Register';
 
 
 export default function BaseLayout() {
+
+   
+
    let [darkMode, setDarkMode] = useState(false);
 
    function handleToggleDarkMode() {
