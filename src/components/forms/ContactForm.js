@@ -1,6 +1,6 @@
 import React from 'react';
 import './ContactForm.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const ContactForm = () => {
@@ -30,8 +30,37 @@ const ContactForm = () => {
 
   }
 
+  const [isRegistered, setIsRegistered] = useState(false);
+ 
 
 
+
+  const checkUser = async () => {
+    try {
+      //console.log("Here");
+      const response = await axios.get('http://localhost:8080/api/usuarios/existe/');
+      console.log(response.status);
+      if(response.status===200) {
+        //console.log("HEREasdasd");
+        setIsRegistered(true);
+        
+        
+      } else {
+        setIsRegistered(false);
+        
+        
+      }
+    }
+    catch(err) {
+      console.error(err);
+    }
+  }
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  if(isRegistered) {
   return (
     <div className="contact-form-wrapper">
       <div className="contact-form-container">
@@ -66,6 +95,10 @@ const ContactForm = () => {
       </div>
     </div>
   );
+  }
+  else {
+    return (<div><h2>No hay un usuario registrado para recibir los formularios!</h2></div>)
+  }
 };
 
 export default ContactForm;

@@ -19,6 +19,9 @@ export default function BaseLayout() {
 
    let [darkMode, setDarkMode] = useState(false);
 
+   
+
+
    function handleToggleDarkMode() {
       let oppositeOfCurrentDarkMode = !darkMode
       console.log(oppositeOfCurrentDarkMode)

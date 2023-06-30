@@ -10,6 +10,11 @@ export const IsNotRegistered = () => {
     const [isRegistered, setIsRegistered] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    //
+
+    //
+
     const handleLogin = async (event) => {
         event.preventDefault(); 
         try {
@@ -31,7 +36,7 @@ export const IsNotRegistered = () => {
             alert("Gracias por registrarse!")
             
             navigate('/login');
-            window.location.reload();
+            //window.location.reload();
             
           } else if(status === 500) {
               alert('Usuario o contraseña invalidos');

@@ -10,7 +10,7 @@ import axios from 'axios';
 
 
 
-
+/*
 const links = [
     {
         name: 'Home',
@@ -34,7 +34,7 @@ const links = [
         active: 'login'
     },
 ]
-
+*/
 
 localStorage.setItem('isReg', 'false');
 
@@ -47,20 +47,21 @@ export default function Navbar({darkMode, handleClick}) {
     
     //checkUserExists();
    const [isRegistered, setIsRegistered] = useState(false);
+   //const [forceReload, setForceReload] = useState(false);
   
    
 
     useEffect(()=>{
         checkUserExists();
-    }, [])
+    })
 
     const checkUserExists = async () => {
 
 
 
         try {
-            const isReg = eval(localStorage.getItem('isReg'));
-            if(!isReg){
+            //const isReg = eval(localStorage.getItem('isReg'));
+            //if(!isReg){
             const response = await axios.get('http://localhost:8080/api/usuarios/existe/');
             const status = response.status;
             
@@ -75,7 +76,7 @@ export default function Navbar({darkMode, handleClick}) {
                 setIsRegistered(false);
                 
             }
-        }
+        //}
             }catch (err) {
                 console.error(err);
             }
