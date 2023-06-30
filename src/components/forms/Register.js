@@ -9,6 +9,7 @@ import { IsNotRegistered } from './IsNotRegistered';
 
 
 
+
 const Register = () => {
   //
   const navigate = useNavigate();
@@ -39,8 +40,11 @@ const Register = () => {
     }
   }
 
-if(!isRegistered) {
+if(isRegistered) {
   return <IsRegistered></IsRegistered>
+  
+  
+
 }
 else {
   return <IsNotRegistered></IsNotRegistered>

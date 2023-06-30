@@ -1,78 +1,12 @@
 import React from 'react'
-import axios from 'axios';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 
 
 export const IsRegistered = () => {
-    const navigate = useNavigate();
-    //const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isRegistered, setIsRegistered] = useState(false);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const handleLogin = async (event) => {
-        event.preventDefault(); // Prevent form submission from refreshing the page
-    
-        try {
-    
-          const response = await axios.post('http://localhost:8080/api/usuarios/register', {
-            username: username,
-            password: password
-          });
-    
-          const {status, token, message} = response.data;
-    
-          
-    
-          if(status === 200){
-            setIsRegistered(true);
-            navigate('/');
-          } else if(status === 401) {
-              alert('Usuario o contraseña invalidos');
-          }
-        }
-        catch(error) {
-          console.error(error);
-          throw new Error("Error en form submit register");
-        }
-    
-      };
-
-
+  //alert("Un usuario ya existe en la BD");
   return (
-    <div className="contact-form-wrapper">
-    <div className="contact-form-container">
-      <h2>Registrarse</h2>
-      <form onSubmit={handleLogin}>
-        <div className="form-group">
-          <label htmlFor="username">Usuario:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="Ingrese su usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="password">Contraseña:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Ingrese su contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        <button type="submit">Registrarse</button>
-      </form>
-    </div>
-  </div>
+    <div><p>Un usuario ya existe en la BD</p></div>
+    
+    
   )
 }

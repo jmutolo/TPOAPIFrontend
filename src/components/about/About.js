@@ -3,8 +3,8 @@ import Style from './About.module.scss';
 import Terminal from "./Terminal";
 import {Box} from "@mui/material";
 import {info} from "../../info/Info";
-import ScrollAnimation from 'react-animate-on-scroll';
-import "animate.css/animate.min.css";
+//import ScrollAnimation from 'react-animate-on-scroll';
+//import "animate.css/animate.min.css";
 
 
 export default function About() {

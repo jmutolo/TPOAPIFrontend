@@ -21,12 +21,12 @@ const LoggedInComponent = () => {
       try {
         const jwt = sessionStorage.getItem('token');
      
-
+        /*
         if(!jwt){
           alert("Invalid Credentials");
           return;
         }
-
+        */
         /*
         const config = {
           headers: {
