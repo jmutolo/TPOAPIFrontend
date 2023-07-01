@@ -20,9 +20,7 @@ export default function Navbar({darkMode, handleClick, isLog, userExists}) {
     navText = 'admin'
    }
    
-    function logOut() {
-        window.location.reload();
-    }
+  
 
 
     if(isLog == true && userExists == true) {
@@ -40,7 +38,7 @@ export default function Navbar({darkMode, handleClick, isLog, userExists}) {
                 active: 'home'
             },
             {
-                //name: 'log in',
+              
                 name: navText,
                 to: '/login',
                 active: 'login'
