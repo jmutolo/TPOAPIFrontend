@@ -3,16 +3,29 @@ import './ContactForm.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const ContactForm = () => {
+
+const ContactForm = ({userExists, isLog}) => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  
+ 
+ 
+ 
+  
 
   const handleContact = async (event) => {
     event.preventDefault();
-
+    
     try {
+
+      const existeReq = await axios.get('http://localhost:8080/api/usuarios/existe/');
+      const responseData = existeReq.data;
+      console.log(responseData);
+      if(responseData && responseData.status===404) {
+        alert("No hay un usuario registrado para recibir el formulario!")
+      } else {
       const response = await axios.post('http://localhost:8080/api/recruiters/', {
         recruiters: {
           name: name,
@@ -22,45 +35,33 @@ const ContactForm = () => {
       });
 
       alert("¡Gracias por contactarte!")
+      
+      setName('');
+      setEmail('');
+      setPhone('');
+    } 
+      
     }
+      
+    
     catch(err) {
+      alert("No hay un usuario registrado para recibir el formulario!")
       console.error(err);
       throw new Error("Error en form submit contact");
     }
 
   }
 
-  const [isRegistered, setIsRegistered] = useState(false);
  
 
 
 
-  const checkUser = async () => {
-    try {
-      //console.log("Here");
-      const response = await axios.get('http://localhost:8080/api/usuarios/existe/');
-      console.log(response.status);
-      if(response.status===200) {
-        //console.log("HEREasdasd");
-        setIsRegistered(true);
-        
-        
-      } else {
-        setIsRegistered(false);
-        
-        
-      }
-    }
-    catch(err) {
-      console.error(err);
-    }
-  }
+  
 
-  useEffect(() => {
-    checkUser();
-  }, []);
-
-  if(isRegistered) {
+  
+  
+ 
+  if(userExists && !isLog){
   return (
     <div className="contact-form-wrapper">
       <div className="contact-form-container">
@@ -95,10 +96,14 @@ const ContactForm = () => {
       </div>
     </div>
   );
+  } else if (userExists && isLog) {
+    return(<div><h2>Se encuentra logeado. No es recomendable contactarse a si mismo...</h2></div>)
   }
+  
   else {
-    return (<div><h2>No hay un usuario registrado para recibir los formularios!</h2></div>)
+    return(<div><h2>No existe un usuario en la BD para recibir su contacto!</h2></div>)
   }
+
 };
 
 export default ContactForm;

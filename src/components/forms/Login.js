@@ -6,16 +6,17 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
-const Login = () => {
-  //
+const Login = (props) => {
+
+  
+  
   const navigate = useNavigate();
-  //const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem('token'));
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async (event) => {
-    event.preventDefault(); // Prevent form submission from refreshing the page
+    event.preventDefault(); 
 
     try {
       const response = await axios.post('http://localhost:8080/api/usuarios/', {
@@ -28,9 +29,11 @@ const Login = () => {
       
 
       if(status === 200){
-        setIsLoggedIn(true);
+        
         sessionStorage.setItem('token', token);
-        //
+        
+        props.sendLogStatus(true);
+        console.log('true');
         navigate('/dashboard');
       } 
       else if (status === 401) {
@@ -40,13 +43,15 @@ const Login = () => {
     }
     catch(error) {
       alert("Usuario o contraseña invalidos");
+      setUsername('');
+      setPassword('');
       console.error(error);
       throw new Error("Error en form submit login");
     }
 
   };
-
-  if (isLoggedIn) {
+  
+  if (props.isLog) {
     navigate('/dashboard');
     return <LoggedInComponent />;
   }

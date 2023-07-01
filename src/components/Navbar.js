@@ -4,96 +4,35 @@ import Toggler from "./home/Toggler";
 import {Link, useLocation} from "react-router-dom";
 import {Box} from "@mui/material";
 import {info} from "../info/Info";
-import axios from 'axios';
 
 
 
 
 
-/*
-const links = [
-    {
-        name: 'Home',
-        to: '/' ,
-        active: 'home'
-    },
-    {
-        name: 'contactate',
-        to: '/portfolio',
-        active: 'portfolio'
-    },
-    {
-        name: info.initials,
-        type: 'initials',
-        to: '/',
-        active: 'home'
-    },
-    {
-        name: 'log in',
-        to: '/login',
-        active: 'login'
-    },
-]
-*/
-
-localStorage.setItem('isReg', 'false');
-
-
-
-
-export default function Navbar({darkMode, handleClick}) {
+export default function Navbar({darkMode, handleClick, isLog, userExists}) {
     const location = useLocation()
     const [active, setActive] = useState(location.pathname === '/' ? 'home' : location.pathname.slice(1, location.pathname.length));
     
-    //checkUserExists();
-   const [isRegistered, setIsRegistered] = useState(false);
-   //const [forceReload, setForceReload] = useState(false);
-  
+    
+   let navText = 'log in';
+
+   if(isLog) {
+    navText = 'admin'
+   }
    
-
-    useEffect(()=>{
-        checkUserExists();
-    })
-
-    const checkUserExists = async () => {
-
-
-
-        try {
-            //const isReg = eval(localStorage.getItem('isReg'));
-            //if(!isReg){
-            const response = await axios.get('http://localhost:8080/api/usuarios/existe/');
-            const status = response.status;
-            
-            if(status===200) {
-                localStorage.setItem('isReg', 'true');
-                //setShowRegistrationForm(true);
-                setIsRegistered(true);
-             
-            }
-            if(status===404) {
-                localStorage.setItem('isReg', 'false');
-                setIsRegistered(false);
-                
-            }
-        //}
-            }catch (err) {
-                console.error(err);
-            }
+    function logOut() {
+        window.location.reload();
     }
 
-    if(isRegistered) {
+
+    if(isLog == true && userExists == true) {
         const links = [
             {
                 name: 'Home',
                 to: '/' ,
                 active: 'home'
             },
-            {
-                name: 'contactate',
-                to: '/portfolio',
-                active: 'portfolio'
-            },
+      
             {
                 name: info.initials,
                 type: 'initials',
@@ -101,12 +40,19 @@ export default function Navbar({darkMode, handleClick}) {
                 active: 'home'
             },
             {
-                name: 'log in',
+                //name: 'log in',
+                name: navText,
                 to: '/login',
                 active: 'login'
             },
+            {
+                name: 'log out',
+                to: '/logout',
+                active: 'logout'
+            }
         ]
         return (
+            
             <Box component={'nav'} width={'100%'}>
                 <Box component={'ul'} display={'flex'} justifyContent={'center'} alignItems={'center'}
                      gap={{xs: '2rem', md: '8rem'}}
@@ -120,35 +66,29 @@ export default function Navbar({darkMode, handleClick}) {
                             </Link>
                         </Box>
                     ))}
+                     
                     <li>
                         <Toggler darkMode={darkMode} handleClick={handleClick}/>
                     </li>
                 </Box>
             </Box>
+            
         )
-    } else {
+    } else if (userExists == false) {
         const links = [
             {
                 name: 'Home',
                 to: '/' ,
                 active: 'home'
             },
-            {
-                name: 'contactate',
-                to: '/portfolio',
-                active: 'portfolio'
-            },
+        
             {
                 name: info.initials,
                 type: 'initials',
                 to: '/',
                 active: 'home'
             },
-            {
-                name: 'log in',
-                to: '/login',
-                active: 'login'
-            },
+        
             {
                 name: 'registrarse',
                 to: '/forms',
@@ -156,6 +96,7 @@ export default function Navbar({darkMode, handleClick}) {
             }
         ]
         return (
+            
             <Box component={'nav'} width={'100%'}>
                 <Box component={'ul'} display={'flex'} justifyContent={'center'} alignItems={'center'}
                      gap={{xs: '2rem', md: '8rem'}}
@@ -174,27 +115,59 @@ export default function Navbar({darkMode, handleClick}) {
                     </li>
                 </Box>
             </Box>
+            
         )
     }
-/*
-    return (
-        <Box component={'nav'} width={'100%'}>
-            <Box component={'ul'} display={'flex'} justifyContent={'center'} alignItems={'center'}
-                 gap={{xs: '2rem', md: '8rem'}}
-                 textTransform={'lowercase'} fontSize={'1rem'}>
-                {links.map((link, index) => (
-                    <Box key={index} component={'li'} className={(link.active === active && !link.type) && Style.active}
-                         sx={{borderImageSource: info.gradient}}>
-                        <Link to={link.to} onClick={() => setActive(link.active)} className={Style.link}>
-                            {!link.type && <p style={{padding: '0.5rem 0'}}>{link.name}</p>}
-                            {link.type && <h1>{link.name}</h1>}
-                        </Link>
-                    </Box>
-                ))}
-                <li>
-                    <Toggler darkMode={darkMode} handleClick={handleClick}/>
-                </li>
+    else if (userExists == true && isLog == false) {
+        const links = [
+            {
+                name: 'Home',
+                to: '/' ,
+                active: 'home'
+            },
+            
+            {
+                name: 'contactate',
+                to: '/portfolio',
+                active: 'portfolio'
+            },
+            
+            {
+                name: info.initials,
+                type: 'initials',
+                to: '/',
+                active: 'home'
+            },
+            {
+                
+                name: navText,
+                to: '/login',
+                active: 'login'
+            },
+        
+        ]
+        return (
+            
+            <Box component={'nav'} width={'100%'}>
+                <Box component={'ul'} display={'flex'} justifyContent={'center'} alignItems={'center'}
+                     gap={{xs: '2rem', md: '8rem'}}
+                     textTransform={'lowercase'} fontSize={'1rem'}>
+                    {links.map((link, index) => (
+                        <Box key={index} component={'li'} className={(link.active === active && !link.type) && Style.active}
+                             sx={{borderImageSource: info.gradient}}>
+                            <Link to={link.to} onClick={() => setActive(link.active)} className={Style.link}>
+                                {!link.type && <p style={{padding: '0.5rem 0'}}>{link.name}</p>}
+                                {link.type && <h1>{link.name}</h1>}
+                            </Link>
+                        </Box>
+                    ))}
+                    <li>
+                        <Toggler darkMode={darkMode} handleClick={handleClick}/>
+                    </li>
+                </Box>
             </Box>
-        </Box>
-    )*/
+            
+        )
+    }
+
 }

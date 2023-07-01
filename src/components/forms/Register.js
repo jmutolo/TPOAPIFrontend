@@ -1,61 +1,105 @@
 
 import React, { useState, useEffect } from 'react';
 import './ContactForm.css';
-import LoggedInComponent from './LoggedInComponent';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { IsRegistered } from './IsRegistered';
-import { IsNotRegistered } from './IsNotRegistered';
 
 
 
 
 
-const Register = () => {
-  //
+
+const Register = (props) => {
+  
   const navigate = useNavigate();
-  //const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
- 
-
-  useEffect(() => {
-    checkUser();
-  }, []);
-
-  const checkUser = async () => {
-    try {
-      //console.log("Here");
-      const response = await axios.get('http://localhost:8080/api/usuarios/existe/');
-      console.log(response.status);
-      if(response.status===200) {
-        //console.log("HEREasdasd");
-        setIsRegistered(true);
+  
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  
+  
+    
+  
+  
+  const handleLogin = async (event) => {
+      event.preventDefault(); 
+      try {
+  
+        const response = await axios.post('http://localhost:8080/api/usuarios/register', {
+          username: username,
+          password: password
+        });
+  
+        const {status, token, message} = response.data;
         
+  
         
-      } else {
-        setIsRegistered(false);
-        
-        
+  
+        if(status === 201){
+          
+          
+          
+          alert("Gracias por registrarse!")
+          props.sendUserExists(true);
+          
+          navigate('/login');
+          
+        } else if(status === 500) {
+            alert('Usuario o contraseña invalidos');
+        }
       }
-    }
-    catch(err) {
-      console.error(err);
-    }
-  }
-
-if(isRegistered) {
-  return <IsRegistered></IsRegistered>
+      catch(error) {
+        console.error(error);
+        throw new Error("Error en form submit register");
+      }
   
-  
+    };
+    
 
+if(!props.userExists) {
+  
+  return (
+    <div className="contact-form-wrapper">
+    <div className="contact-form-container">
+      <h2>Registrarse</h2>
+      <form onSubmit={handleLogin}>
+        <div className="form-group">
+          <label htmlFor="username">Usuario:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Ingrese su usuario"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="password">Contraseña:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Ingrese su contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <button type="submit">Registrarse</button>
+      </form>
+    </div>
+  </div>
+
+  )
+  
 }
 else {
-  return <IsNotRegistered></IsNotRegistered>
+  return (<div><h2>Un usuario ya existe en la BD</h2></div>)
 }
 
-
-
-  
 
 
 };
